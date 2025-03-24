@@ -1,0 +1,9 @@
+{
+    "name": "com.nuskey.nrandom.unity",
+    "version": "2.0.0",
+    "displayName": "NRandom.Unity",
+    "description": "NRandom plugin for Unity.",
+    "author": {
+        "name": "nuskey"
+    }
+}

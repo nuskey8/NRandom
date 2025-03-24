@@ -3,9 +3,9 @@
     <PropertyGroup>
         <!-- NuGet Packaging -->
         <PackageVersion>1.0.4</PackageVersion>
-        <Authors>Annulus Games</Authors>
-        <Copyright>© Annulus Games</Copyright>
-        <PackageProjectUrl>https://github.com/AnnulusGames/RandomExtensions</PackageProjectUrl>
+        <Authors>nuskey</Authors>
+        <Copyright>© nuskey</Copyright>
+        <PackageProjectUrl>https://github.com/nuskey8/NRandom</PackageProjectUrl>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

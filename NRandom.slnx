@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/sandbox/">
+    <Project Path="sandbox/Benchmark/Benchmark.csproj" />
+    <Project Path="sandbox/ConsoleApp1/ConsoleApp1.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/NRandom.Numerics/NRandom.Numerics.csproj" />
+    <Project Path="src/NRandom/NRandom.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NRandom.Tests/NRandom.Tests.csproj" />
+  </Folder>
+</Solution>
