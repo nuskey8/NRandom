@@ -32,9 +32,9 @@ public class WeightedList<T> : IReadOnlyWeightedList<T>, IList<WeightedValue<T>>
         public struct Enumerator(WeightedList<T> list) : IEnumerator<T>
         {
             int offset;
-            T current;
+            T? current;
 
-            public T Current => current;
+            public T Current => current!;
             object? IEnumerator.Current => current;
 
             public bool MoveNext()
@@ -72,7 +72,7 @@ public class WeightedList<T> : IReadOnlyWeightedList<T>, IList<WeightedValue<T>>
     readonly List<WeightedValue<T>> list;
     readonly ValueCollection values;
 
-    internal double TotalWeight => totalWeight;
+    public double TotalWeight => totalWeight;
 
     public WeightedValue<T> this[int index]
     {
