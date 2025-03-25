@@ -4,8 +4,6 @@
     <Project Path="sandbox/ConsoleApp1/ConsoleApp1.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/NRandom.Collections/NRandom.Collections.csproj" />
-    <Project Path="src/NRandom.Linq/NRandom.Linq.csproj" />
     <Project Path="src/NRandom.Numerics/NRandom.Numerics.csproj" />
     <Project Path="src/NRandom/NRandom.csproj" />
   </Folder>

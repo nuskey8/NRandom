@@ -3,8 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\NRandom\NRandom.csproj" />
     <ProjectReference Include="..\..\src\NRandom.Numerics\NRandom.Numerics.csproj" />
-    <ProjectReference Include="..\..\src\NRandom.Collections\NRandom.Collections.csproj" />
-    <ProjectReference Include="..\..\src\NRandom.Linq\NRandom.Linq.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
