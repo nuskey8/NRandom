@@ -160,14 +160,6 @@ public static class RandomEnumerable
     /// <summary>
     /// Returns a shuffled sequence.
     /// </summary>
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
-    {
-        return Shuffle(source, RandomEx.Shared);
-    }
-
-    /// <summary>
-    /// Returns a shuffled sequence.
-    /// </summary>
     public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, IRandom random)
     {
         if (source == null) throw new ArgumentNullException(nameof(source));
