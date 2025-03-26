@@ -26,7 +26,7 @@ public class MersenneTwister
         }
     }
 
-    public ulong Next()
+    public uint Next()
     {
         ulong y;
         ReadOnlySpan<ulong> mag01 = [0x0UL, MATRIX_A];
@@ -60,7 +60,7 @@ public class MersenneTwister
         y ^= (y << 15) & 0xefc60000UL;
         y ^= (y >> 18);
 
-        return y;
+        return (uint)y;
     }
 
 }

@@ -21,11 +21,11 @@ public sealed class MersenneTwisterRandom : IRandom
 
     public uint NextUInt()
     {
-        return (uint)(mt.Next() >> 32);
+        return mt.Next();
     }
 
     public ulong NextULong()
     {
-        return mt.Next();
+        return (((ulong)mt.Next()) << 32) | mt.Next();
     }
 }
