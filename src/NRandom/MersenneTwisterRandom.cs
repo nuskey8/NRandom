@@ -2,6 +2,9 @@ using NRandom.Algorithms;
 
 namespace NRandom;
 
+/// <summary>
+/// IRandom implementation using Mersenne Twister (MT19937)
+/// </summary>
 public sealed class MersenneTwisterRandom : IRandom
 {
     readonly MersenneTwister mt = new();

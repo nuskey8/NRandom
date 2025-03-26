@@ -2,6 +2,9 @@ using NRandom.Algorithms;
 
 namespace NRandom;
 
+/// <summary>
+/// IRandom implementation using Tiny Mersenne Twister (64bit)
+/// </summary>
 public sealed class TinyMt64Random : IRandom
 {
     TinyMt64 mt;
