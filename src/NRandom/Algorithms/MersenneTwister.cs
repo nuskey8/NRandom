@@ -5,7 +5,7 @@ namespace NRandom.Algorithms;
 /// <summary>
 /// Implementation of Mersenne Twister (MT19937)
 /// </summary>
-public class MersenneTwister
+public sealed class MersenneTwister
 {
     const int N = 624;
     const int M = 397;
