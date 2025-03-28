@@ -9,6 +9,10 @@ public sealed class TinyMt64Random : IRandom
 {
     TinyMt64 mt;
 
+    public TinyMt64Random(bool linearityCheck = false) : this(0x8f7011ee, 0xfc78ff1f, 0x3793fdff, linearityCheck)
+    {
+    }
+
     public TinyMt64Random(uint mat1, uint mat2, ulong tmat, bool linearityCheck = false)
     {
         mt = new(mat1, mat2, tmat, linearityCheck);
