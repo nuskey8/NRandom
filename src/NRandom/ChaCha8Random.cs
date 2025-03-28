@@ -10,7 +10,12 @@ public sealed class ChaCha8Random : IRandom
 
     public void InitState(uint seed)
     {
-        chacha.Init(seed);
+        Span<uint> k = stackalloc uint[12];
+        for (int i = 0; i < k.Length; i++)
+        {
+            k[i] = SplitMix32.Next(ref seed);
+        }
+        chacha.Init(k[..8], k[8], k[9..]);
     }
 
     public uint NextUInt()
