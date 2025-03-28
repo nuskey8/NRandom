@@ -2,9 +2,12 @@ using NRandom.Algorithms;
 
 namespace NRandom;
 
-public sealed class ChaCha8Random : IRandom
+/// <summary>
+/// IRandom implementation using ChaCha
+/// </summary>
+public sealed class ChaChaRandom(int rounds = 8) : IRandom
 {
-    ChaCha8 chacha = new();
+    ChaCha chacha = new(rounds);
     readonly uint[] buffer = new uint[16];
     int bufferIndex = 16;
 

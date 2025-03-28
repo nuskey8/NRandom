@@ -6,9 +6,9 @@ namespace NRandom.Algorithms;
 // Original Implementation: https://cr.yp.to/streamciphers/timings/estreambench/submissions/salsa20/chacha8/ref/chacha.c
 
 /// <summary>
-/// Implementation of ChaCha8
+/// Implementation of ChaCha
 /// </summary>
-public unsafe struct ChaCha8
+public unsafe struct ChaCha(int rounds)
 {
     fixed uint state[16];
 
@@ -48,18 +48,18 @@ public unsafe struct ChaCha8
 
         fixed (uint* ptr = state)
         {
-            Next(new Span<uint>(ptr, 16), buffer);
+            Next(new Span<uint>(ptr, 16), buffer, rounds);
         }
     }
 
-    public static void Next(Span<uint> state, Span<uint> buffer)
+    public static void Next(Span<uint> state, Span<uint> buffer, int rounds)
     {
         ExpectLength(nameof(state), state.Length, 16);
         ExpectLength(nameof(buffer), buffer.Length, 16);
 
         state.CopyTo(buffer[..16]);
 
-        for (int i = 0; i < 8; i += 2)
+        for (int i = 0; i < rounds / 2; i += 2)
         {
             QuarterRound(buffer, 0, 4, 8, 12);
             QuarterRound(buffer, 1, 5, 9, 13);
