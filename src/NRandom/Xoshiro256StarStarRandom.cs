@@ -14,11 +14,6 @@ public sealed class Xoshiro256StarStarRandom : IRandom
         xoshiro = new Xoshiro256StarStar();
     }
 
-    public Xoshiro256StarStarRandom(uint seed)
-    {
-        InitState(seed);
-    }
-
     public Xoshiro256StarStarRandom(uint s0, uint s1, uint s2, uint s3)
     {
         xoshiro = new Xoshiro256StarStar(s0, s1, s2, s3);

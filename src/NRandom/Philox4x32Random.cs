@@ -5,16 +5,10 @@ namespace NRandom;
 /// <summary>
 /// IRandom implementation using Philox 4x32
 /// </summary>
-public sealed class Philox4x32Random : IRandom
+public sealed class Philox4x32Random(int rounds = 10) : IRandom
 {
-    Philox4x32 philox;
+    Philox4x32 philox = new(rounds);
     int index = 4;
-
-    public Philox4x32Random(int rounds = 10)
-    {
-        philox = new(rounds);
-        philox.Init(0x1234, 0x5678);
-    }
 
     public void InitState(uint seed)
     {

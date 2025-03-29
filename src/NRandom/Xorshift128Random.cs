@@ -14,11 +14,6 @@ public sealed class Xorshift128Random : IRandom
         xorshift = new Xorshift128();
     }
 
-    public Xorshift128Random(uint seed)
-    {
-        InitState(seed);
-    }
-
     public Xorshift128Random(uint s0, uint s1, uint s2, uint s3)
     {
         xorshift = new Xorshift128(s0, s1, s2, s3);
