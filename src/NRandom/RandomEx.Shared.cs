@@ -1,10 +1,9 @@
+using System.Security.Cryptography;
+
 namespace NRandom;
 
 public static partial class RandomEx
 {
-    [ThreadStatic] static Random? seedGenerator;
-    static Random SeedGenerator => seedGenerator ??= new();
-
     /// <summary>
     /// Provides a thread-safe IRandom instance that may be used concurrently from any thread.
     /// </summary>
@@ -15,7 +14,9 @@ public static partial class RandomEx
     /// </summary>
     public static IRandom Create()
     {
-        return new Xoshiro256StarStarRandom((uint)SeedGenerator.Next());
+        var instance = new Xoshiro256StarStarRandom();
+        instance.InitState((uint)RandomNumberGenerator.GetInt32(int.MaxValue));
+        return instance;
     }
 }
 
