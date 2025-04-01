@@ -167,6 +167,16 @@ public static class RandomEnumerable
         return source.ElementAt(random.NextInt(0, count));
     }
 
+#if !NET10_0_OR_GREATER
+    /// <summary>
+    /// Returns a shuffled sequence.
+    /// </summary>
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+    {
+        return Shuffle(source, RandomEx.Shared);
+    }
+#endif
+
     /// <summary>
     /// Returns a shuffled sequence.
     /// </summary>
