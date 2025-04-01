@@ -2,28 +2,35 @@ namespace NRandom.Collections;
 
 public static class WeightedCollectionExtensions
 {
-    public static T GetItem<T>(this IWeightedCollection<T> collection)
+    public static T GetRandom<T>(this IWeightedCollection<T> collection)
     {
-        return collection.GetItem(RandomEx.Shared);
+        return collection.GetRandom(RandomEx.Shared);
     }
 
-    public static T[] GetItems<T>(this IWeightedCollection<T> collection, int length, IRandom random)
+    public static T GetRandom<T>(this IWeightedCollection<T> collection, IRandom random)
+    {
+        Span<T> buffer = [default!];
+        collection.GetRandom(random, buffer);
+        return buffer[0];
+    }
+
+    public static T[] GetRandom<T>(this IWeightedCollection<T> collection, int length, IRandom random)
     {
         ThrowHelper.ThrowIfLengthIsNegative(length);
 
         var array = new T[length];
-        collection.GetItems(random, array.AsSpan());
+        collection.GetRandom(random, array.AsSpan());
 
         return array;
     }
 
-    public static T[] GetItems<T>(this IWeightedCollection<T> collection, int length)
+    public static T[] GetRandom<T>(this IWeightedCollection<T> collection, int length)
     {
-        return GetItems(collection, length, RandomEx.Shared);
+        return GetRandom(collection, length, RandomEx.Shared);
     }
 
-    public static void GetItems<T>(this IWeightedCollection<T> collection, Span<T> destination)
+    public static void GetRandom<T>(this IWeightedCollection<T> collection, Span<T> destination)
     {
-        collection.GetItems(RandomEx.Shared, destination);
+        collection.GetRandom(RandomEx.Shared, destination);
     }
 }

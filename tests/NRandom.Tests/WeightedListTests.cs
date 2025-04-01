@@ -60,7 +60,7 @@ public class WeightedListTests
     }
 
     [Test]
-    public void Test_GetItem()
+    public void Test_GetRandom()
     {
         var list = new WeightedList<int>
         {
@@ -71,13 +71,13 @@ public class WeightedListTests
 
         for (int i = 0; i < 10000; i++)
         {
-            var element = list.GetItem();
+            var element = list.GetRandom();
             Assert.That(list, Has.Count.EqualTo(3));
             Assert.That(element, Is.EqualTo(1).Or.EqualTo(2).Or.EqualTo(3));
         }
 
         var empty = new WeightedList<int>();
-        Assert.Throws<InvalidOperationException>(() => empty.GetItem());
+        Assert.Throws<InvalidOperationException>(() => empty.GetRandom());
     }
 
     [Test]
@@ -90,7 +90,7 @@ public class WeightedListTests
             { 3, 3.0 },
         };
 
-        var elements = list.GetItems(10000);
+        var elements = list.GetRandom(10000);
 
         for (int i = 0; i < elements.Length; i++)
         {
@@ -98,7 +98,7 @@ public class WeightedListTests
         }
 
         var empty = new WeightedList<int>();
-        Assert.Throws<InvalidOperationException>(() => empty.GetItems(10));
+        Assert.Throws<InvalidOperationException>(() => empty.GetRandom(10));
     }
 
 

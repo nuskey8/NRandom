@@ -129,30 +129,26 @@ public class WeightedList<T> : IReadOnlyWeightedList<T>, IList<WeightedValue<T>>
         return new Enumerator(this);
     }
 
-    public T GetItem(IRandom random)
+    public void GetRandom(IRandom random, Span<T> destination)
     {
         if (list.Count == 0) throw new InvalidOperationException("Empty list");
 
-        var r = random.NextDouble() * totalWeight;
-        var current = 0.0;
-
-        for (int i = 0; i < list.Count; i++)
+        for (int n = 0; n < destination.Length; n++)
         {
-            current += list[i].Weight;
-            if (r <= current)
+            var r = random.NextDouble() * totalWeight;
+            var current = 0.0;
+
+            for (int i = 0; i < list.Count; i++)
             {
-                return list[i].Value;
+                current += list[i].Weight;
+                if (r <= current)
+                {
+                    destination[n] = list[i].Value;
+                    continue;
+                }
             }
-        }
 
-        return list[^1].Value;
-    }
-
-    public void GetItems(IRandom random, Span<T> destination)
-    {
-        for (int i = 0; i < destination.Length; i++)
-        {
-            destination[i] = GetItem(random);
+            destination[n] = list[^1].Value;
         }
     }
 
