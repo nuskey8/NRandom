@@ -1,20 +1,20 @@
-# Random Extensions
+# NRandom
 
-[![NuGet](https://img.shields.io/nuget/v/RandomEx.svg)](https://www.nuget.org/packages/RandomEx)
-[![Releases](https://img.shields.io/github/release/AnnulusGames/RandomExtensions.svg)](https://github.com/AnnulusGames/RandomExtensions/releases)
-[![GitHub license](https://img.shields.io/github/license/AnnulusGames/RandomExtensions.svg)](./LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/NRandom.svg)](https://www.nuget.org/packages/NRandom)
+[![Releases](https://img.shields.io/github/release/nuskey8/NRandom.svg)](https://github.com/nuskey8/NRandom/releases)
+[![GitHub license](https://img.shields.io/github/license/nuskey8/NRandom.svg)](./LICENSE)
 
 [English]((./README.md)) | 日本語
 
 ## 概要
 
-Random Extensionsは.NET/Unity向けに擬似乱数生成の機能を提供するライブラリです。
+NRandomは.NET/Unity向けに擬似乱数生成の機能を提供するライブラリです。
 
 .NETには標準の`Random`クラスが存在しますが、その機能は十分ではなく、また互換性の問題から複雑な実装や不要な抽象化が多く残されています。
 
 Unityの`UnityEngine.Random`はstaticクラスであるためインスタンス化できず、内部で状態管理を行うため乱数の再現が難しい問題があります。
 
-Random Extensionsでは新たな乱数生成の抽象レイヤーとして`IRandom`を導入し、複数のアルゴリズム(xoshift, xoshiro, splitmix, PCG)に基づく高速な実装を提供します。また、`System.Numerics`やUnityの型に対応した拡張メソッド、重み付き乱数を扱うための`IWeightedCollection<T>`、乱数に対応したLINQの拡張(`RandomEnumerable`)など、乱数を取り扱う上で便利な多くの機能を用意しています。
+NRandomでは新たな乱数生成の抽象レイヤーとして`IRandom`を導入し、複数のアルゴリズム(xoshift, xoshiro, splitmix, PCG, etc.)に基づく高速な実装を提供します。また、`System.Numerics`やUnityの型に対応した拡張メソッド、重み付き乱数を扱うための`IWeightedCollection<T>`、乱数に対応したLINQの拡張(`RandomEnumerable`)など、乱数を取り扱う上で便利な多くの機能を用意しています。
 
 > [!WARNING]
 > このライブラリをセキュリティ目的で使用しないでください。暗号的に安全な乱数が必要な場合は`System.Security.Cryptography.RandomNumberGenerator`の利用を推奨します。
@@ -23,30 +23,30 @@ Random Extensionsでは新たな乱数生成の抽象レイヤーとして`IRand
 
 ### NuGet packages
 
-Random Extensionsを利用するには.NET Standard2.1以上が必要です。パッケージはNuGetから入手できます。
+NRandomを利用するには.NET Standard2.1以上が必要です。パッケージはNuGetから入手できます。
 
 ### .NET CLI
 
 ```ps1
-dotnet add package RandomEx
+dotnet add package NRandom
 ```
 
 ### Package Manager
 
 ```ps1
-Install-Package RandomEx
+Install-Package NRandom
 ```
 
 ### Unity
 
-NugetForUnityを用いることでUnityでRandom Extensionsを利用可能です。詳細は[Unity](#unity-1)の項目を参照してください。
+NugetForUnityを用いることでUnityでNRandomを利用可能です。詳細は[Unity](#unity-1)の項目を参照してください。
 
 ## 基本的な使い方
 
 `RandomEx.Shared`を用いて乱数の生成を行うことができます。
 
 ```cs
-using RandomExtensions;
+using NRandom;
 
 // 0-9までのランダムな値を取得
 var n = RandomEx.Shared.NextInt(0, 10);
@@ -66,11 +66,11 @@ var d = rand.NextDouble();
 ```
 
 > [!WARNING]
-> `RandomEx.Shared`はスレッドセーフですが、`RandomEx.Create()`で作成したインスタンスやその他の`IRandom`を実装したクラスはスレッドセーフではないことに注意してください。
+> `RandomEx.Shared`はスレッドセーフですが、`RandomEx.Create()`で作成したインスタンスやその他の`IRandom`を実装したクラスはスレッドセーフではありません。
 
 ## 対応する型
 
-Random Extensionsは`System.Random`よりもさらに多くの型に対応しています。
+NRandomは`System.Random`よりもさらに多くの型に対応しています。
 
 ```cs
 var rand = RandomEx.Create();
@@ -112,37 +112,7 @@ rand.NextBytes(buffer);          // バッファをランダムなbyte列で埋�
 
 また、拡張パッケージを導入することで`System.Numerics`、Unityの型に対応したメソッドを利用することも可能です。詳細は[System.Numerics](#systemnumerics)と[Unity](#unity-1)の項目を参照してください。
 
-## コレクションの操作
-
-### 要素の取得
-
-`GetItem()`メソッドを使用して配列からランダムな要素を取得することができます。要素を複数まとめて取得する場合は`GetItems()`が利用できます。
-
-```cs
-var rand = RandomEx.Create();
-
-// 値を保持する配列を作成
-var values = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
-// ランダムな要素を取得
-var item = rand.GetItem(values);
-
-// ランダムな要素を5つ取得 (重複あり)
-var items = rand.GetItems(values, 5);
-```
-
-また、各要素の重みを指定することも可能です。引数に渡す重みの配列は元の配列の要素数と一致する必要があります。
-
-```cs
-var values = new int[] { 0, 1, 2 };
-var weights = new double[] { 1.0, 5.0, 1.0 };
-
-// 重み付けされた要素から取得
-var item = rand.GetItem(values, weights);
-var items = rand.GetItem(values, weights, 5);
-```
-
-### シャッフル
+## シャッフル
 
 `Shuffle()`メソッドを使用して配列の要素をシャッフルできます。
 
@@ -157,20 +127,20 @@ rand.Shuffle(array);
 
 ### LINQの拡張
 
-`RandomExtensions.Linq`名前空間以下には、乱数を利用した`IEnumerable<T>`の拡張が用意されています。
+`NRandom.Linq`名前空間以下には、乱数を利用した`IEnumerable<T>`の拡張が用意されています。
 
 ```cs
 using System;
 using System.Linq;
-using RandomExtensions.Linq;
+using NRandom.Linq;
 
 var sequence = Enumerable.Range(0, 100);
 
 // ランダムな要素を取得
 var r = sequence.RandomElement();
 
-// 順序をシャッフル
-foreach (var item in sequence.Shuffle())
+// NRandomを利用したShuffle()
+foreach (var item in sequence.Shuffle(RandomEx.Shared))
 {
     Console.WriteLine(item);
 }
@@ -193,18 +163,17 @@ var r = sequence.RandomElement(rand);
 
 ## 重み付きコレクション
 
-`RandomExtensions.Collections`名前空間以下には重み付きの要素を保持するコレクションが用意されています。
+`NRandom.Collections`名前空間以下には重み付きの要素を保持するコレクションが用意されています。
 
 ```cs
 // 重み付きコレクションのインターフェース
 public interface IWeightedCollection<T> : IReadOnlyCollection<WeightedValue<T>>
 {
-    T GetItem<TRandom>(TRandom random) where TRandom : IRandom;
-    void GetItems<TRandom>(TRandom random, Span<T> destination) where TRandom : IRandom;
+    void GetRandom<TRandom>(TRandom random, Span<T> destination) where TRandom : IRandom;
 }
 
 // 重み付き要素を表す構造体
-public readonly record struct WeightedValue<T>(T Value, double Weight);
+public record struct WeightedValue<T>(T Value, double Weight);
 ```
 
 以下に`WeightedList<T>`を利用した重み付きの抽選のサンプルを示します。
@@ -214,19 +183,32 @@ public readonly record struct WeightedValue<T>(T Value, double Weight);
 var weightedList = new WeightedList<string>();
 
 // 要素を重みを指定して追加
-weightedList.Add("Legendary", 0.5f);
-weightedList.Add("Epic", 2.5f);
-weightedList.Add("Rare", 12f);
-weightedList.Add("Uncommon", 25f);
-weightedList.Add("Common", 60f);
+weightedList.Add("Legendary", 0.5);
+weightedList.Add("Epic", 2.5);
+weightedList.Add("Rare", 12);
+weightedList.Add("Uncommon", 25);
+weightedList.Add("Common", 60);
 
 // 重み付きでランダムな要素を取得
-var rarity = weightedList.GetItem();
+var rarity = weightedList.GetRandom();
+```
+
+また、`RemoveRandom()`を利用して重複なしの重み付き抽選を行うことも可能です。
+
+```cs
+var list = new WeightedList<string>();
+list.Add("Foo", 1.0);
+list.Add("Bar", 1.5);
+list.Add("Baz", 3.0);
+
+list.RemoveRandom(out var item0);
+list.RemoveRandom(out var item1);
+list.RemoveRandom(out var item2);
 ```
 
 ## IRandom
 
-Random Extensionsでは乱数生成器のインターフェースとして`IRandom`を提供しています。これを実装することで独自の乱数生成器を作成できます。
+NRandomでは乱数生成器のインターフェースとして`IRandom`を提供しています。これを実装することで独自の乱数生成器を作成できます。
 
 ```cs
 public interface IRandom
@@ -239,29 +221,36 @@ public interface IRandom
 
 ### IRandomの実装
 
-Random Extensionsでは標準でいくつかの`IRandom`の実装が用意されています。以下にクラス名と内部で利用される擬似乱数のアルゴリズムの一覧を示します。
+NRandomでは標準で多くの`IRandom`の実装が用意されています。以下にクラス名と内部で利用される擬似乱数のアルゴリズムの一覧を示します。
 
 | クラス名 | アルゴリズム |
 | - | - |
+| `ChaChaRandom` | ChaCha (デフォルトはChaCha8) |
+| `MersenneTwisterRandom` | Mersenne Twister (MT19937) |
 | `Pcg32Random` | PCG32 (PCG-XSH-RR) |
+| `Philox4x32Random` | Philox4x32 (デフォルトはPhilox4x32-10)  |
+| `Sfc32Random` | SFC32  |
+| `Sfc64Random` | SFC64  |
 | `SplitMix32Random` | splitmix32 |
 | `SplitMix64Random` | splitmix64 |
+| `TinyMt32Random` | Tiny Mersenne Twister (32bit) |
+| `TinyMt64Random` | Tiny Mersenne Twister (64bit) |
 | `Xorshift32Random` | xorshift32 |
 | `Xorshift64Random` | xorshift64 |
 | `Xorshift128Random` | xorshift128 |
 | `Xoshiro128StarStarRandom` | xoshiro128** |
 | `Xoshiro256StarStarRandom` | xoshiro256** |
 
-## RandomExtensions.Algorithms
+## NRandom.Algorithms
 
-`RandomExtensions.Algorithms`名前空間以下には擬似乱数の生成を行うアルゴリズムの実装が用意されています。
+`NRandom.Algorithms`名前空間以下には擬似乱数の生成を行うアルゴリズムの実装が用意されています。
 
 これらは最小限の状態とメソッドのみを持つ構造体であり、パフォーマンスが重要な場面や状態のシリアライズなどに役立ちます。
 
 以下は`XorShift32`構造体を用いた擬似乱数生成のサンプルです。
 
 ```cs
-using RandomExtensions.Algorithms;
+using NRandom.Algorithms;
 
 var seed = 123456;
 var xorshift = new Xorshift32(seed);
@@ -271,26 +260,26 @@ var r = xorshift.Next();
 
 ## System.Numerics
 
-`System.Numerics`名前空間以下の型に対応した拡張として、`RandomEx.Numerics`パッケージがNuGetで提供されています。
+`System.Numerics`名前空間以下の型に対応した拡張として、`NRandom.Numerics`パッケージがNuGetで提供されています。
 
 #### .NET CLI
 
 ```ps1
-dotnet add package RandomEx.Numerics
+dotnet add package NRandom.Numerics
 ```
 
 #### Package Manager
 
 ```ps1
-Install-Package RandomEx.Numerics
+Install-Package NRandom.Numerics
 ```
 
-`RandomEx.Numerics`パッケージを導入することで、`Vector2`、`Vector3`、`Vector4`、`Quaternion`に対応した拡張メソッドが追加されます。
+`NRandom.Numerics`パッケージを導入することで、`Vector2`、`Vector3`、`Vector4`、`Quaternion`に対応した拡張メソッドが追加されます。
 
 ```cs
 using System.Numerics;
-using RandomExtensions;
-using RandomExtensions.Numerics;
+using NRandom;
+using NRandom.Numerics;
 
 var rand = RandomEx.Create();
 
@@ -319,7 +308,7 @@ rand.NextQuaternionRotation();  // ランダムな回転を表すQuaternionを�
 
 ## Unity
 
-Random ExtensionsはUnityで使用可能なほか、Unity向けの拡張パッケージを提供しています。
+NRandomはUnityで使用可能なほか、Unity向けの拡張パッケージを提供しています。
 
 ### 要件
 
@@ -329,23 +318,22 @@ Random ExtensionsはUnityで使用可能なほか、Unity向けの拡張パッ�
 
 1. [NugetForUnity](https://github.com/GlitchEnzo/NuGetForUnity)をインストールします。
 
-2. `NuGet > Manage NuGet Packages`からNuGetウィンドウを開き、`RandomEx`パッケージを検索してインストールします。
-    ![img](docs/img-nugetforunity.png)
+2. `NuGet > Manage NuGet Packages`からNuGetウィンドウを開き、`NRandom`パッケージを検索してインストールします。
 
 3. `Window > Package Manager`からPackage Managerウィンドウを開き、`[+] > Add package from git URL`から以下のURLを入力します。
 
     ```
-    https://github.com/AnnulusGames/RandomExtensions.git?path=src/RandomExtensions.Unity/Assets/RandomExtensions.Unity
+    https://github.com/nuskey8/NRandom.git?path=src/NRandom.Unity/Assets/NRandom.Unity
     ```
 
 ### 拡張メソッド
 
-`RandomExtensions.Unity`名前空間以下では、Unity向けに以下の拡張メソッドが用意されています。
+`NRandom.Unity`名前空間以下では、Unity向けに以下の拡張メソッドが用意されています。
 
 ```cs
 using UnityEngine;
-using RandomExtensions;
-using RandomExtensions.Unity;
+using NRandom;
+using NRandom.Unity;
 
 var rand = RandomEx.Create();
 
@@ -378,6 +366,25 @@ rand.NextColor(new Color(0f, 0f, 0f), new Color(1f, 1f, 1f));
 rand.NextColorHSV(0f, 1f, 0f, 1f, 0f, 1f);          // HSVの範囲を指定
 rand.NextColorHSV(0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f);  // HSVとalphaの範囲を指定
 ```
+
+### SerializableWeightedList
+
+通常の`WeightedList<T>`とは別に、Inspectorで値を編集可能な`SerializableWeightedList<T>`が提供されています。
+
+```cs
+using NRandom;
+using NRandom.Collections;
+using NRandom.Unity;
+using UnityEngine;
+
+public class Sandbox : MonoBehaviour
+{
+    [SerializeField] WeightedValue<string> value;
+    [SerializeField] SerializableWeightedList<string> list;
+}
+```
+
+![img](./docs/img-list-inspector.png)
 
 ## ライセンス
 
