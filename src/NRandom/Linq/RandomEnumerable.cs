@@ -140,6 +140,8 @@ public static class RandomEnumerable
 
         if (source is T[] array)
         {
+            if (array.Length == 0) throw new ArgumentException("The collection is empty.");
+
 #if NET_6_0_OR_GREATER
             return Unsafe.Add(ref MemoryMarshal.GetArrayDataReference(array), random.NextInt(0, array.Length));
 #else
@@ -148,6 +150,8 @@ public static class RandomEnumerable
         }
         if (source is List<T> list)
         {
+            if (list.Count == 0) throw new ArgumentException("The collection is empty.");
+
             var span = CollectionsMarshal.AsSpan(list);
             return Unsafe.Add(ref MemoryMarshal.GetReference(span), random.NextInt(0, span.Length));
         }
