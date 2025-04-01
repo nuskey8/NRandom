@@ -1,5 +1,5 @@
-using RandomExtensions;
-using RandomExtensions.Unity;
+using NRandom;
+using NRandom.Unity;
 using UnityEngine;
 
 public class Sandbox : MonoBehaviour

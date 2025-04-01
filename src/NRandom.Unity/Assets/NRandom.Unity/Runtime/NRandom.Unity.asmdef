@@ -1,5 +1,5 @@
 {
-    "name": "RandomExtensions.Unity",
+    "name": "NRandom.Unity",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
@@ -7,7 +7,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "RandomExtensions.dll"
+        "NRandom.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
