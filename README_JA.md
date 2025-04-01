@@ -19,6 +19,9 @@ NRandomでは新たな乱数生成の抽象レイヤーとして`IRandom`を導�
 > [!WARNING]
 > このライブラリをセキュリティ目的で使用しないでください。暗号的に安全な乱数が必要な場合は`System.Security.Cryptography.RandomNumberGenerator`の利用を推奨します。
 
+> [!NOTE]
+> RandomExtensions(v1)からの移行は[こちら](./docs/migrating_randomextensions_ja.md)を参照してください。 
+
 ## インストール
 
 ### NuGet packages

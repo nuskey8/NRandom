@@ -20,6 +20,9 @@ NRandom introduces `IRandom` as a new abstraction layer for random number genera
 > [!WARNING]
 > Do not use this library for security purposes. If you need cryptographically secure random numbers, use `System.Security.Cryptography.RandomNumberGenerator`.
 
+> [!NOTE]
+> For migration from RandomExtensions(v1), please see [here](./docs/migrating_randomextensions.md).
+
 ## Installation
 
 ### NuGet packages
