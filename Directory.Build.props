@@ -4,7 +4,7 @@
         <!-- NuGet Packaging -->
         <PackageVersion>2.0.0</PackageVersion>
         <Authors>nuskey</Authors>
-        <Copyright>© nuskey</Copyright>
+        <Copyright>© Yusuke Nakada</Copyright>
         <PackageProjectUrl>https://github.com/nuskey8/NRandom</PackageProjectUrl>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
