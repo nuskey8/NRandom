@@ -168,7 +168,7 @@ namespace NRandom.Unity
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Color NextColor(this IRandom random, Color max)
         {
-            return new Vector4(random.NextFloat(max.r), random.NextFloat(max.g), random.NextFloat(max.b), random.NextFloat(max.a));
+            return new Color(random.NextFloat(max.r), random.NextFloat(max.g), random.NextFloat(max.b), random.NextFloat(max.a));
         }
 
         /// <summary>
@@ -177,7 +177,16 @@ namespace NRandom.Unity
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Color NextColor(this IRandom random, Color min, Color max)
         {
-            return new Vector4(random.NextFloat(min.r, max.r), random.NextFloat(min.g, max.g), random.NextFloat(min.b, max.b), random.NextFloat(min.a, max.a));
+            return new Color(random.NextFloat(min.r, max.r), random.NextFloat(min.g, max.g), random.NextFloat(min.b, max.b), random.NextFloat(min.a, max.a));
+        }
+
+        /// <summary>
+        /// Returns a random Color value with all components in gradient.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Color NextColor(this IRandom random, Gradient gradient)
+        {
+            return gradient.Evaluate(random.NextFloat());
         }
 
         /// <summary>
