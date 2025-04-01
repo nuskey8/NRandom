@@ -26,7 +26,7 @@ namespace System.Runtime.InteropServices
             }
         }
 
-#if !NET6_0_OR_GREATER
+#if !NET8_0_OR_GREATER
         internal static Span<T> AsSpan<T>(this List<T>? list)
         {
             Span<T> span = default;
