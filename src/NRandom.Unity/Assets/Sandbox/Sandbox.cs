@@ -12,7 +12,7 @@ public class Sandbox : MonoBehaviour
     {
         for (int i = 0; i < 10000; i++)
         {
-            Debug.Log(list.GetItem());
+            Debug.Log(list.GetRandom());
         }
 
         for (int i = 0; i < 2500; i++)
