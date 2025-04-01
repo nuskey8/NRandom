@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace NRandom.Collections;
 
+[Serializable]
 public readonly record struct WeightedValue<T>(T Value, double Weight);
 
 internal sealed class WeightedValueEqualityComparer<T> : IEqualityComparer<WeightedValue<T>>

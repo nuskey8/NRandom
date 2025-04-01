@@ -72,6 +72,9 @@ public class WeightedList<T> : IReadOnlyWeightedList<T>, IList<WeightedValue<T>>
     readonly List<WeightedValue<T>> list;
     readonly ValueCollection values;
 
+    internal List<WeightedValue<T>> GetListInternal() => list;
+    internal void SetTotalWeightInternal(double totalWeight) => this.totalWeight = totalWeight;
+
     public double TotalWeight => totalWeight;
 
     public WeightedValue<T> this[int index]
