@@ -1,0 +1,20 @@
+{
+    "name": "NRandom.Unity.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a3b5dce4c133f40fdafd65e3d18402fe"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "NRandom.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,11 +1,20 @@
 using NRandom;
+using NRandom.Collections;
 using NRandom.Unity;
 using UnityEngine;
 
 public class Sandbox : MonoBehaviour
 {
+    [SerializeField] WeightedValue<string> value;
+    [SerializeField] SerializableWeightedList<string> list;
+
     void Awake()
     {
+        for (int i = 0; i < 10000; i++)
+        {
+            Debug.Log(list.GetItem());
+        }
+
         for (int i = 0; i < 2500; i++)
         {
             var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
