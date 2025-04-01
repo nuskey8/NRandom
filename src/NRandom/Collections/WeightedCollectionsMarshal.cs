@@ -16,16 +16,22 @@ public static class WeightedCollectionsMarshal
     }
 
     /// <summary>
-    /// Sets the count and totalWeight of the WeightedList
+    /// Sets the count of the WeightedList
     /// </summary>
-    public static void SetCountAndTotalWeight<T>(WeightedList<T> list, int count, double totalWeight)
+    public static void SetCount<T>(WeightedList<T> list, int count)
     {
 #if NET8_0_OR_GREATER
         CollectionsMarshal.SetCount(list.GetListInternal(), count);
 #else
         CollectionsMarshal.UnsafeSetCount(list.GetListInternal(), count);
 #endif
+    }
 
+    /// <summary>
+    /// Sets the totalWeight of the WeightedList
+    /// </summary>
+    public static void SetTotalWeight<T>(WeightedList<T> list, double totalWeight)
+    {
         list.SetTotalWeightInternal(totalWeight);
     }
 }
