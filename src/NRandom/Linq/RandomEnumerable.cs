@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using NRandom.Collections;
 
@@ -139,11 +140,16 @@ public static class RandomEnumerable
 
         if (source is T[] array)
         {
-            return random.GetItem(array);
+#if NET_6_0_OR_GREATER
+            return Unsafe.Add(ref MemoryMarshal.GetArrayDataReference(array), random.NextInt(0, array.Length));
+#else
+            return array[random.NextInt(0, array.Length)];
+#endif
         }
         if (source is List<T> list)
         {
-            return random.GetItem<T>(CollectionsMarshal.AsSpan(list));
+            var span = CollectionsMarshal.AsSpan(list);
+            return Unsafe.Add(ref MemoryMarshal.GetReference(span), random.NextInt(0, span.Length));
         }
         if (source is IReadOnlyList<T> readOnlyList)
         {
