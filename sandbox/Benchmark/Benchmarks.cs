@@ -1,5 +1,5 @@
 using BenchmarkDotNet.Attributes;
-using RandomExtensions;
+using NRandom;
 
 namespace Benchmark;
 
@@ -12,8 +12,8 @@ public class NextIntBenchmark
         return Random.Shared.Next(0, 10);
     }
 
-    [Benchmark(Description = "RandomExtension")]
-    public int RandomExtensions()
+    [Benchmark(Description = "NRandom")]
+    public int NRandom()
     {
         return RandomEx.Shared.NextInt(0, 10);
     }
@@ -28,8 +28,8 @@ public class NextDoubleBenchmark
         return Random.Shared.NextDouble();
     }
 
-    [Benchmark(Description = "RandomExtension")]
-    public double RandomExtensions()
+    [Benchmark(Description = "NRandom")]
+    public double NRandom()
     {
         return RandomEx.Shared.NextDouble();
     }
