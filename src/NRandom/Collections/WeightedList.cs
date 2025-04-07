@@ -144,11 +144,14 @@ public class WeightedList<T> : IReadOnlyWeightedList<T>, IList<WeightedValue<T>>
                 if (r <= current)
                 {
                     destination[n] = list[i].Value;
-                    continue;
+                    goto LOOP_END;
                 }
             }
 
             destination[n] = list[^1].Value;
+
+        LOOP_END:
+            continue;
         }
     }
 
